@@ -6,32 +6,23 @@ This file is part of the Manim Voiceover project.
 
 import hashlib
 import json
-import numpy as np
 from pathlib import Path
 from manim_voiceover.services.base import SpeechService
-from kokoro_onnx import Kokoro
-from manim_voiceover.helper import remove_bookmarks, wav2mp3
-from scipy.io.wavfile import write as write_wav
 from src.config.config import Config
-
+from elevenlabs import ElevenLabs  # 新增：ElevenLabs 语音合成 API
 
 class KokoroService(SpeechService):
-    """Speech service class for kokoro_self (using text_to_speech via Kokoro ONNX)."""
+    """Speech service class for kokoro_self using ElevenLabs API for text-to-speech synthesis."""
 
     def __init__(self, engine=None, 
-                 model_path: str = Config.KOKORO_MODEL_PATH,
-                 voices_path: str = Config.KOKORO_VOICES_PATH,
-                 voice: str = Config.KOKORO_DEFAULT_VOICE,
-                 speed: float = Config.KOKORO_DEFAULT_SPEED,
-                 lang: str = Config.KOKORO_DEFAULT_LANG,
+                 voice: str = Config.ELEVENLABS_DEFAULT_VOICE,
                  **kwargs):
-        self.kokoro = Kokoro(model_path, voices_path)
-        self.voice = voice
-        self.speed = speed
-        self.lang = lang
+        # 初始化 ElevenLabs 客户端（请确保 Config 中设置了 ELEVENLABS_API_KEY）
+        self.client = ElevenLabs(api_key=Config.ELEVENLABS_API_KEY)
+        self.voice = voice  # 此处 voice 为 ElevenLabs 的 voice_id
 
         if engine is None:
-            engine = self.text_to_speech  # Default to local function
+            engine = self.text_to_speech  # 默认使用本类的 text_to_speech 方法
 
         self.engine = engine
         super().__init__(**kwargs)
@@ -40,48 +31,31 @@ class KokoroService(SpeechService):
         """
         Generates a hash based on the input data dictionary.
         The hash is used to create a unique identifier for the input data.
-
-        Parameters:
-            input_data (dict): A dictionary of input data (e.g., text, voice, etc.).
-
-        Returns:
-            str: The generated hash as a string.
         """
-        # Convert the input data dictionary to a JSON string (sorted for consistency)
         data_str = json.dumps(input_data, sort_keys=True)
-        # Generate a SHA-256 hash of the JSON string
         return hashlib.sha256(data_str.encode('utf-8')).hexdigest()
 
-    def text_to_speech(self, text, output_file, voice_name, speed, lang):
+    def text_to_speech(self, text, output_file, voice_name):
         """
-        Generates speech from text using Kokoro ONNX and saves the audio file.
-        Normalizes the audio to make it audible.
+        Generates speech from text using ElevenLabs API and saves the audio file.
         """
-        # Generate audio samples using Kokoro
-        samples, sample_rate = self.kokoro.create(
-            text, voice=voice_name, speed=speed, lang=lang
+        audio_generator = self.client.text_to_speech.convert(
+            voice_id=voice_name,
+            output_format="mp3_44100_128",
+            text=text,
+            model_id="eleven_multilingual_v2",
         )
-
-        # Normalize audio to the range [-1, 1]
-        max_val = np.max(np.abs(samples))
-        if max_val > 0:
-            samples = samples / max_val
-
-        # Convert to 16-bit integer PCM format
-        samples = (samples * 32767).astype("int16")
-
-        # Save the normalized audio as a .wav file
-        write_wav(output_file, sample_rate, samples)
+        with open(output_file, "wb") as f:
+            for chunk in audio_generator:
+                f.write(chunk)
         print(f"Saved at {output_file}")
-
         return output_file
-
 
     def generate_from_text(self, text: str, cache_dir: str = None, path: str = None) -> dict:
         if cache_dir is None:
             cache_dir = self.cache_dir
 
-        input_data = {"input_text": text, "service": "kokoro_self", "voice": self.voice, "lang": self.lang}
+        input_data = {"input_text": text, "service": "elevenlabs_self"}
         cached_result = self.get_cached_result(input_data, cache_dir)
         if cached_result is not None:
             return cached_result
@@ -91,22 +65,12 @@ class KokoroService(SpeechService):
         else:
             audio_path = path
 
-        # Generate .wav file using the text_to_speech function
-        audio_path_wav = str(Path(cache_dir) / audio_path.replace(".mp3", ".wav"))
+        output_path = str(Path(cache_dir) / audio_path)
         self.engine(
             text=text,
-            output_file=audio_path_wav,
+            output_file=output_path,
             voice_name=self.voice,
-            speed=self.speed,
-            lang=self.lang,
         )
-
-        # Convert .wav to .mp3
-        mp3_audio_path = str(Path(cache_dir) / audio_path)
-        wav2mp3(audio_path_wav, mp3_audio_path)
-
-        # Remove original .wav file
-        remove_bookmarks(audio_path_wav)
 
         json_dict = {
             "input_text": text,

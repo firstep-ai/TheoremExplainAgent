@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            // "program": "${workspaceFolder}/generate_video.py",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            // "args": [
+            //     "--model", "openai/o3-mini",
+            //     "--helper_model", "openai/o3-mini",
+            //     "--output_dir", "output/my_exp_name",
+            //     "--topic", "Bubble sort explain",
+            //     "--context", "explain how to use bubble sort algorithm sort [2,4,6,1,3]"
+            // ]
+        }
+    ]
+}
