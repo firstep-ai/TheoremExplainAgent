@@ -1,0 +1,3 @@
+Please include a step-by-step reasoning process that clearly explains how to solve the problem.
+Make sure the explanation is visual, easy to follow, and includes the final answer at the end.
+Use narration to guide the viewer through the solution steps, and animate the reasoning process if appropriate.
