@@ -578,6 +578,34 @@ class VideoGenerator:
             scene_plans.sort(key=lambda x: x[0])
             # Extract just the plans in the correct order
             filtered_implementation_plans = [plan for _, plan in scene_plans]
+            import requests
+
+            # 接口地址（请替换成你实际的接口 URL）
+            url = "http://localhost:8000/generate_mindmap_image"
+
+            # 请求参数，包含一个 "promote" 字段（值请根据你实际需求填写）
+            payload = {
+                "prompt": str(filtered_implementation_plans)
+                }
+
+# 如果需要请求头（如 Content-Type、Authorization），请设置
+            headers = {
+                "Content-Type": "application/json",
+                # "Authorization": "Bearer YOUR_TOKEN"  # 如有需要
+            }
+
+# 发起 POST 请求
+            response = requests.post(url, json=payload, headers=headers)
+
+# 检查请求是否成功
+            if response.status_code == 200:
+    # 保存为图片文件（例如 output.png）
+                with open("output.png", "wb") as f:
+                  f.write(response.content)
+                print("图片已成功保存为 output.png")
+            else:
+                print(f"请求失败，状态码: {response.status_code}")
+                print("返回内容:", response.text)
             await self.render_video_fix_code(topic, description, scene_outline, filtered_implementation_plans,
                                            max_retries=max_retries, session_id=session_id)
         

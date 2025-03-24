@@ -9,16 +9,16 @@
             "name": "Python Debugger: Current File",
             "type": "debugpy",
             "request": "launch",
-            // "program": "${workspaceFolder}/generate_video.py",
-            "program": "${file}",
+            "program": "${workspaceFolder}/generate_video.py",
+            // "program": "${file}",
             "console": "integratedTerminal",
-            // "args": [
-            //     "--model", "openai/o3-mini",
-            //     "--helper_model", "openai/o3-mini",
-            //     "--output_dir", "output/my_exp_name",
-            //     "--topic", "Bubble sort explain",
-            //     "--context", "explain how to use bubble sort algorithm sort [2,4,6,1,3]"
-            // ]
+            "args": [
+                "--model", "openai/o3-mini",
+                "--helper_model", "openai/o3-mini",
+                "--output_dir", "output/my_exp_name",
+                "--topic", "Bubble sort explain",
+                "--context", "explain how to use bubble sort algorithm sort [2,4,6,1,3]"
+            ]
         }
     ]
 }
