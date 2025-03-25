@@ -34,7 +34,6 @@ async def stream_subprocess_output(process, log_file_path):
 @app.post("/generate_video")
 async def generate_video(request: VideoRequest):
     print("生成视频的项目接收到 transfer_protocol 的请求参数:", request)
-    
     session_id = str(uuid.uuid4())
     output_dir = f"output/{session_id}"
     os.makedirs(output_dir, exist_ok=True)
@@ -44,8 +43,10 @@ async def generate_video(request: VideoRequest):
     log_file_path = os.path.join(output_dir, f"generate_log_{timestamp}.txt")
 
     # 构建命令
-    command = f'python generate_video.py --model "openai/o3-mini" --helper_model "openai/o3-mini" ' \
-              f'--output_dir "{output_dir}" --topic "{request.topic}" --context "{request.context}"'
+    command = f'export PYTHONPATH=$(pwd):$PYTHONPATH && python generate_video.py ' \
+              f'--model "openai/o3-mini" --helper_model "openai/o3-mini" ' \
+              f'--output_dir "{output_dir}" --topic "{session_id}" --context "{request.context}"'
+
 
     process = await asyncio.create_subprocess_shell(
         command,
@@ -57,6 +58,7 @@ async def generate_video(request: VideoRequest):
     await stream_subprocess_output(process, log_file_path)
 
     await process.wait()
+
 
     if process.returncode == 0:
         file_prefix = request.topic.replace(" ", "_")

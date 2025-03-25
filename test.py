@@ -1209,9 +1209,9 @@ response = requests.post(url, json=payload, headers=headers)
 # 检查请求是否成功
 if response.status_code == 200:
     # 保存为图片文件（例如 output.png）
-    with open("output.html", "wb") as f:
+    with open("output.png", "wb") as f:
         f.write(response.content)
-    print("网页已成功保存为 output.html")
+    print("网页已成功保存为 output.png")
 else:
     print(f"请求失败，状态码: {response.status_code}")
     print("返回内容:", response.text)
