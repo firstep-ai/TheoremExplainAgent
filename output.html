@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.18.10/dist/browser/index.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/index.js"></script><script>((r) => {
+          setTimeout(r);
+        })(() => {
+  const { markmap, mm } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute("style", "position:absolute;bottom:20px;right:20px");
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root2, jsonOptions) => {
+              const markmap = getMarkmap();
+              window.mm = markmap.Markmap.create(
+                "svg#mindmap",
+                (getOptions || markmap.deriveOptions)(jsonOptions),
+                root2
+              );
+            })(() => window.markmap,null,{"content":"Mind Map: Understanding and Solving Linear Equations","children":[{"content":"Key Concepts","children":[{"content":"Equations as Statements of Equality","children":[{"content":"<strong>Definition</strong>: An equation is a mathematical statement that asserts the equality of two expressions.","children":[],"payload":{"tag":"li","lines":"5,6"}},{"content":"<strong>Example</strong>: (2x + 3 = 7) indicates that when (2x + 3) is calculated, it equals 7.","children":[],"payload":{"tag":"li","lines":"6,8"}}],"payload":{"tag":"h3","lines":"4,5"}},{"content":"Use of Unknown Variables","children":[{"content":"<strong>Definition</strong>: Variables represent unknown values in equations.","children":[],"payload":{"tag":"li","lines":"9,10"}},{"content":"<strong>Example</strong>: In (x + 5 = 10), (x) is the unknown variable.","children":[],"payload":{"tag":"li","lines":"10,11"}},{"content":"<strong>Explanation</strong>: Variables allow for generalization and solving of problems where specific values are not initially known.","children":[],"payload":{"tag":"li","lines":"11,13"}}],"payload":{"tag":"h3","lines":"8,9"}},{"content":"Application of Linear Equations to Real-Life Scenarios","children":[{"content":"<strong>Explanation</strong>: Linear equations can model real-world situations, such as calculating distances, budgeting, or predicting trends.","children":[],"payload":{"tag":"li","lines":"14,15"}},{"content":"<strong>Example</strong>: If a car travels at 60 mph, the distance (d) traveled in (t) hours is (d = 60t).","children":[],"payload":{"tag":"li","lines":"15,17"}}],"payload":{"tag":"h3","lines":"13,14"}},{"content":"Algebraic Manipulation and Isolation of Variables","children":[{"content":"<strong>Definition</strong>: The process of rearranging equations to solve for a specific variable.","children":[],"payload":{"tag":"li","lines":"18,19"}},{"content":"<strong>Example</strong>: To solve (3x + 2 = 11), subtract 2 from both sides and then divide by 3 to isolate (x).","children":[],"payload":{"tag":"li","lines":"19,21"}}],"payload":{"tag":"h3","lines":"17,18"}}],"payload":{"tag":"h2","lines":"2,3"}},{"content":"Problem-Solving Approaches","children":[{"content":"Breaking Down Complex Problems","children":[{"content":"<strong>Method</strong>: Divide the problem into smaller, more manageable parts to simplify the solving process.","children":[],"payload":{"tag":"li","lines":"24,25"}},{"content":"<strong>Example</strong>: Solve (2(x + 3) = 14) by first expanding to (2x + 6 = 14), then solving for (x).","children":[],"payload":{"tag":"li","lines":"25,27"}}],"payload":{"tag":"h3","lines":"23,24"}},{"content":"Using Visual Aids","children":[{"content":"<strong>Method</strong>: Employ diagrams, timelines, or graphs to represent abstract concepts visually.","children":[],"payload":{"tag":"li","lines":"28,29"}},{"content":"<strong>Example</strong>: Use a number line to visualize the solution of (x + 3 = 7).","children":[],"payload":{"tag":"li","lines":"29,31"}}],"payload":{"tag":"h3","lines":"27,28"}},{"content":"Sequential Problem Solving","children":[{"content":"<strong>Method</strong>: Build upon each step logically to progress towards the solution.","children":[],"payload":{"tag":"li","lines":"32,33"}},{"content":"<strong>Example</strong>: In solving (4x - 5 = 15), first add 5 to both sides, then divide by 4.","children":[],"payload":{"tag":"li","lines":"33,35"}}],"payload":{"tag":"h3","lines":"31,32"}},{"content":"Emphasizing Key Concepts","children":[{"content":"<strong>Method</strong>: Reinforce understanding through repetition and varied presentation (visual, auditory).","children":[],"payload":{"tag":"li","lines":"36,37"}},{"content":"<strong>Example</strong>: Repeatedly practice solving equations with different structures to solidify understanding.","children":[],"payload":{"tag":"li","lines":"37,39"}}],"payload":{"tag":"h3","lines":"35,36"}}],"payload":{"tag":"h2","lines":"21,22"}},{"content":"Step-by-Step Procedures","children":[{"content":"Introduce the Concept and Definition of Equations","children":[{"content":"<strong>Step 1</strong>: Define what an equation is and its components (variables, constants, operators).","children":[],"payload":{"tag":"li","lines":"42,44"}}],"payload":{"tag":"h3","lines":"41,42"}},{"content":"Visualize the Problem Setup","children":[{"content":"<strong>Step 2</strong>: Use diagrams or labels to represent the problem contextually.","children":[],"payload":{"tag":"li","lines":"45,47"}}],"payload":{"tag":"h3","lines":"44,45"}},{"content":"Construct Equations from Verbal Descriptions","children":[{"content":"<strong>Step 3</strong>: Translate word problems into mathematical equations.","children":[],"payload":{"tag":"li","lines":"48,50"}}],"payload":{"tag":"h3","lines":"47,48"}},{"content":"Simplify Equations","children":[{"content":"<strong>Step 4</strong>: Combine like terms and use inverse operations to simplify.","children":[],"payload":{"tag":"li","lines":"51,53"}}],"payload":{"tag":"h3","lines":"50,51"}},{"content":"Solve for Unknowns","children":[{"content":"<strong>Step 5</strong>: Isolate the variable to find its value.","children":[],"payload":{"tag":"li","lines":"54,56"}}],"payload":{"tag":"h3","lines":"53,54"}},{"content":"Summarize Findings","children":[{"content":"<strong>Step 6</strong>: Present the solution clearly, using visual aids if necessary, to ensure understanding.","children":[],"payload":{"tag":"li","lines":"57,58"}}],"payload":{"tag":"h3","lines":"56,57"}}],"payload":{"tag":"h2","lines":"39,40"}}],"payload":{"tag":"h1","lines":"0,1"}},null)</script>
+</body>
+</html>
